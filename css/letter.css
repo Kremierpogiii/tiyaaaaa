@@ -1,0 +1,44 @@
+.letter-gift { position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%); z-index: 20; text-align: center; }
+.gift-button { position: relative; display: block; width: 130px; height: 105px; margin: auto; border: 0; background: transparent; cursor: pointer; }
+.gift-base { position: absolute; bottom: 0; left: 10px; width: 110px; height: 75px; background: linear-gradient(135deg, #f6a6bd, #d66591); border-radius: 5px 5px 12px 12px; box-shadow: 0 8px 30px #0006; }
+.gift-base::after, .gift-lid::after { content: ''; position: absolute; left: 43%; width: 14%; height: 100%; background: #ffe4ac; }
+.gift-lid { position: absolute; left: 0; top: 21px; width: 130px; height: 24px; border-radius: 5px; background: #ffbed1; z-index: 2; transition: transform .65s ease, opacity .65s ease; }
+.gift-bow { position: absolute; top: -22px; left: 45px; color: #ffe4ac; font: bold 44px Georgia, serif; line-height: 1; }
+.gift-button.is-open .gift-lid { transform: translateY(-65px) rotate(-18deg); opacity: 0; }
+.gift-button:focus-visible { outline: 3px solid #ffe4ac; outline-offset: 8px; border-radius: 12px; }
+.gift-hint { display: block; margin-top: 12px; color: #ffe8ef; font: 14px Georgia, serif; letter-spacing: 1px; }
+.letter-dialog { width: min(88vw, 470px); max-height: 80dvh; padding: 0; border: 0; border-radius: 18px; margin: auto; background: #fff8ed; color: #623e46; box-shadow: 0 25px 100px #0008; }
+.letter-dialog::backdrop { background: #090b1ab8; backdrop-filter: blur(5px); }
+.letter-dialog[open] { animation: letter-rise .7s cubic-bezier(.2,.8,.2,1) both; }
+.letter-paper { padding: 46px 32px 32px; font: 18px/1.8 Georgia, serif; }
+.letter-paper h2 { margin-bottom: 20px; color: #b54f75; font-size: 30px; }
+.letter-paper p { margin: 0 0 18px; }
+.letter-signature { font-style: italic; color: #b54f75; }
+.letter-close { position: absolute; top: 10px; right: 14px; width: 34px; height: 34px; border: 0; border-radius: 50%; background: #f5e3e7; color: #623e46; font-size: 25px; cursor: pointer; }
+@keyframes letter-rise { from { opacity: 0; transform: translateY(110px) scale(.65) rotate(-5deg); } to { opacity: 1; transform: translateY(0) scale(1) rotate(0); } }
+@media (max-width: 500px) { .letter-gift { bottom: 20px; } .letter-paper { padding: 42px 24px 24px; font-size: 16px; } }
+@media (prefers-reduced-motion: reduce) { .gift-lid { transition: none; } .letter-dialog[open] { animation: none; } }
+
+.letter-gift { width: min(90vw, 360px); }
+.gift-hint { line-height: 1.6; }
+.gift-button { animation: gift-heartbeat 1.8s ease-in-out infinite; transform-origin: center bottom; }
+.gift-button.is-open { animation: none; }
+@keyframes gift-heartbeat {
+  0%, 35%, 100% { transform: scale(1); }
+  10%, 25% { transform: scale(1.08); }
+  17% { transform: scale(1.02); }
+}
+@media (prefers-reduced-motion: reduce) { .gift-button { animation: none; } }
+
+/* The box and caption enter together after the garden finishes growing. */
+.letter-gift { visibility: hidden; opacity: 0; pointer-events: none; }
+.gift-ready .letter-gift { visibility: visible; pointer-events: auto; animation: gift-arrive .8s ease-out both; }
+.not-loaded .flowers { visibility: hidden; }
+@keyframes gift-arrive {
+  0% { opacity: 0; transform: translate(-50%, 35px) scale(.65); }
+  70% { opacity: 1; transform: translate(-50%, -6px) scale(1.06); }
+  100% { opacity: 1; transform: translate(-50%, 0) scale(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gift-ready .letter-gift { animation: none; opacity: 1; }
+}
